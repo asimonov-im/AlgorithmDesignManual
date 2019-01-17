@@ -49,11 +49,25 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exercises\Chapter 3\BSTToLinkedListTests.cs" />
+    <Compile Include="Exercises\Chapter 3\CycleDetectionTests.cs" />
+    <Compile Include="Exercises\Chapter 3\FindListMiddleTests.cs" />
+    <Compile Include="Exercises\Chapter 3\IntegerProductTests.cs" />
+    <Compile Include="Exercises\Chapter 3\MinOfSubsequenceTests.cs" />
+    <Compile Include="Exercises\Chapter 3\ParenBalancingTests.cs" />
+    <Compile Include="Exercises\Chapter 3\PartialSumTests.cs" />
+    <Compile Include="Exercises\Chapter 3\ReverseLinkedListTests.cs" />
+    <Compile Include="Exercises\Chapter 3\ReverseWordsInSentenceTests.cs" />
+    <Compile Include="Exercises\Chapter 3\WordPairFrequencyTests.cs" />
+    <Compile Include="ExponentiationTests.cs" />
     <Compile Include="IntegerDivisionTests.cs" />
     <Compile Include="JobSchedulingTests.cs" />
     <Compile Include="NextLexographicalPermutationTests.cs" />
+    <Compile Include="SubstringMatchingTests.cs" />
     <Compile Include="TravellingSalesmanTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TreeTraversalTests.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -64,6 +78,7 @@
       <Name>AlgorithmDesign</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

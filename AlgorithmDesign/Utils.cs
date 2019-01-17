@@ -2,6 +2,7 @@
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Text;
 
     /// <summary>
     /// Swaps elements with indexA and indexB in the specified list.
@@ -13,6 +14,19 @@
             T tmp = lst[indexA];
             lst[indexA] = lst[indexB];
             lst[indexB] = tmp;
+        }
+
+        public static void Reverse(this StringBuilder sb)
+        {
+            int numElements = sb.Length;
+            int numSwaps = numElements / 2;
+            for (int i = 0; i < numSwaps; ++i)
+            {
+                int j = numElements - i - 1;
+                char tmp = sb[i];
+                sb[i] = sb[j];
+                sb[j] = tmp;
+            }
         }
 
         public static void Reverse<T>(this IList<T> lst)
