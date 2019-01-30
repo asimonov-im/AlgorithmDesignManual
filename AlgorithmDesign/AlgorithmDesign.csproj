@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Artem Simonov</Authors>
     <Company />
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   
   <ItemGroup>

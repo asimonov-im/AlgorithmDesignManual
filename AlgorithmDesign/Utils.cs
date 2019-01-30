@@ -16,6 +16,13 @@
             lst[indexB] = tmp;
         }
 
+        public static void Swap<T>(ref T a, ref T b)
+        {
+            T tmp = a;
+            a = b;
+            b = tmp;
+        }
+
         public static void Reverse(this StringBuilder sb)
         {
             int numElements = sb.Length;
@@ -71,6 +78,17 @@
         public static bool IsBitSet(int num, int bitIndex)
         {
             return (num & (1 << bitIndex)) != 0;
+        }
+
+        public static int Mod(int divident, int divisor)
+        {
+            int result = divident % divisor;
+            if (divisor > 0 && divident < 0)
+            {
+                result += divisor;
+            }
+
+            return result;
         }
     }
 }
