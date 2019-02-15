@@ -2,33 +2,66 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using System.Text;
 
-    public class Trie<T>
+    public class Trie : TrieBase<TrieNode>
     {
-        private TrieNode Root { get; }
+        public Trie()
+            : base(c => new TrieNode(c))
+        {
+        }
+
+        public static Trie FromWordFile(string filePath)
+        {
+            var trie = new Trie();
+            foreach (var line in File.ReadLines(filePath))
+            {
+                trie.Insert(line);
+            }
+
+            return trie;
+        }
+    }
+
+    public class Trie<T> : TrieBase<TrieNode<T>>
+    {
+        public Trie()
+            : base(c => new TrieNode<T>(c))
+        {
+        }
+    }
+
+    public class TrieBase<NodeType>
+        where NodeType : TrieNode
+    {
+        private readonly Func<char, NodeType> makeNode;
+
+        public NodeType Root { get; }
 
         public int NodeCount { get; private set; }
 
-        public Trie()
+        public TrieBase(Func<char, NodeType> makeNode)
         {
-            Root = new TrieNode('^');
+            this.makeNode = makeNode;
+            Root = makeNode('^');
         }
 
-        public TrieNode Insert(string prefix)
+        public NodeType Insert(string prefix)
         {
             if (string.IsNullOrEmpty(prefix))
             {
                 throw new ArgumentException("Argument must not be null or empty.");
             }
 
-            var node = Root;
+            NodeType node = Root;
             foreach (char c in prefix)
             {
-                var nextNode = node.GetChild(c);
+                NodeType nextNode = (NodeType)node.GetChild(c);
                 if (nextNode == null)
                 {
-                    nextNode = new TrieNode(c);
+                    nextNode = makeNode(c);
                     node.AddChild(nextNode);
                     ++NodeCount;
                 }
@@ -76,61 +109,81 @@
             var node = Root;
             foreach (char c in prefix)
             {
-                node = node.GetChild(c);
+                node = (NodeType)node.GetChild(c);
                 if (node == null) break;
             }
 
             return node;
         }
+    }
 
-        public class TrieNode
+    public class TrieNode
+    {
+        private readonly List<TrieNode> children = new List<TrieNode>();
+
+        public TrieNode Parent { get; private set; }
+
+        public IEnumerable<TrieNode> Children => children;
+
+        public char Value { get; }
+
+        public bool IsLeaf => children.Count == 0;
+
+        public bool IsTerminal { get; internal set; }
+
+        public override string ToString()
         {
-            public TrieNode Parent { get; private set; }
-
-            public char Value { get; }
-
-            public T Data { get; set; }
-
-            private List<TrieNode> Children { get; } = new List<TrieNode>();
-
-            public bool IsLeaf => Children.Count == 0;
-
-            public bool IsTerminal { get; internal set; }
-
-            public override string ToString()
+            var sb = new StringBuilder();
+            var node = this;
+            while (node.Parent != null)
             {
-                var sb = new StringBuilder();
-                var node = this;
-                while (node.Parent != null)
-                {
-                    sb.Append(node.Value);
-                    node = node.Parent;
-                }
-                sb.Reverse();
-
-                return sb.ToString();
+                sb.Append(node.Value);
+                node = node.Parent;
             }
+            sb.Reverse();
 
-            internal TrieNode(char c)
-            {
-                Value = c;
-            }
+            return sb.ToString();
+        }
 
-            internal TrieNode GetChild(char value)
-            {
-                return Children.Find(x => x.Value == value);
-            }
+        public TrieNode(char c)
+        {
+            Value = c;
+        }
 
-            internal void AddChild(TrieNode child)
-            {
-                Children.Add(child);
-                child.Parent = this;
-            }
+        public TrieNode GetChild(char value)
+        {
+            return children.Find(x => x.Value == value);
+        }
 
-            internal bool RemoveChild(TrieNode child)
-            {
-                return Children.Remove(child);
-            }
+        internal void AddChild(TrieNode child)
+        {
+            children.Add(child);
+            child.Parent = this;
+        }
+
+        internal bool RemoveChild(TrieNode child)
+        {
+            return children.Remove(child);
+        }
+    }
+
+    public class TrieNode<T> : TrieNode
+    {
+        public new TrieNode<T> Parent
+            => (TrieNode<T>)base.Parent;
+
+        public new IEnumerable<TrieNode<T>> Children
+            => base.Children.Cast<TrieNode<T>>();
+
+        public T Data { get; set; }
+
+        public TrieNode(char c) : base(c)
+        {
+        }
+
+        public new TrieNode<T> GetChild(char value)
+        {
+            return (TrieNode<T>)base.GetChild(value);
         }
     }
 }

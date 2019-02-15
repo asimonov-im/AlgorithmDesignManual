@@ -90,5 +90,10 @@
 
             return result;
         }
+
+        public static void RemoveLast<T>(this IList<T> lst)
+        {
+            lst.RemoveAt(lst.Count - 1);
+        }
     }
 }

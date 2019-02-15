@@ -11,7 +11,7 @@
         {
             var trie = new Trie<int>();
 
-            Trie<int>.TrieNode bestPair = null;
+            TrieNode<int> bestPair = null;
             string previousWord = null;
             foreach (var word in TokenizeWords(text))
             {
