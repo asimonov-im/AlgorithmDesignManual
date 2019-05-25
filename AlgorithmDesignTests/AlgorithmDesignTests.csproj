@@ -73,6 +73,11 @@
     <Compile Include="Exercises\Chapter 7\AnagramFinderTests.cs" />
     <Compile Include="Exercises\Chapter 7\DerangementTests.cs" />
     <Compile Include="Exercises\Chapter 7\PermutationTests.cs" />
+    <Compile Include="Exercises\Chapter 8\EditDistanceTests.cs" />
+    <Compile Include="Exercises\Chapter 8\LongestCommonSubsequenceTests.cs" />
+    <Compile Include="Exercises\Chapter 8\LongestCommonSubstringTests.cs" />
+    <Compile Include="Exercises\Chapter 8\PartitionTests.cs" />
+    <Compile Include="Exercises\Chapter 8\StringShuffleTests.cs" />
     <Compile Include="ExponentiationTests.cs" />
     <Compile Include="HeapTests.cs" />
     <Compile Include="IntegerDivisionTests.cs" />
